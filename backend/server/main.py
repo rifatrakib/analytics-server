@@ -1,13 +1,11 @@
 from fastapi import FastAPI
 
 from server.config import settings
+from server.models.schemas import HealthResponseSchema
 
 app = FastAPI()
 
 
-@app.get("/health")
+@app.get("/health", response_model=HealthResponseSchema)
 async def health():
-    return {
-        "status": "ok",
-        "message": f"{settings.APP_NAME} is running in {settings.MODE} mode",
-    }
+    return settings
