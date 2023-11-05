@@ -41,6 +41,7 @@ class SettingsSource(PydanticBaseSettingsSource):
 class BaseConfig(BaseSettings):
     APP_NAME: str
     MODE: Modes
+    DEBUG: bool
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -58,3 +59,11 @@ class BaseConfig(BaseSettings):
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> Tuple[PydanticBaseSettingsSource, ...]:
         return init_settings, env_settings, dotenv_settings, SettingsSource(settings_cls)
+
+    @property
+    def health_check(cls) -> Dict[str, Any]:
+        return {
+            "app_name": cls.APP_NAME,
+            "mode": cls.MODE,
+            "debug": cls.DEBUG,
+        }
