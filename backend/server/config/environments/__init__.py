@@ -40,6 +40,7 @@ class SettingsSource(PydanticBaseSettingsSource):
 
 class BaseConfig(BaseSettings):
     APP_NAME: str
+    VERSION: str
     MODE: Modes
     DEBUG: bool
 
@@ -63,7 +64,7 @@ class BaseConfig(BaseSettings):
     @property
     def health_check(cls) -> Dict[str, Any]:
         return {
-            "app_name": cls.APP_NAME,
+            "app_name": f"{cls.APP_NAME} - {cls.VERSION}",
             "mode": cls.MODE,
             "debug": cls.DEBUG,
         }
