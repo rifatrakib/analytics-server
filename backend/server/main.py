@@ -1,12 +1,12 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI
 
 from server.config import settings
-from server.models.schemas.responses.misc import HealthResponse, MessageResponse
+from server.events.startup import define_responses, get_app_information
+from server.models.schemas.responses.misc import HealthResponse
 
 app = FastAPI(
-    responses={
-        status.HTTP_400_BAD_REQUEST: {"model": MessageResponse, "exclude_unset": True},
-    },
+    **get_app_information(),
+    responses=define_responses(),
 )
 
 
