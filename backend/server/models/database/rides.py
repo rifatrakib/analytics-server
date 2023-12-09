@@ -1,14 +1,5 @@
-from datetime import datetime
-
 from server.models.database import BaseDocument
-from server.models.schemas import BaseSchema
-
-
-class Activity(BaseSchema):
-    place: str
-    time: datetime
-    battery: int
-    temperature: int
+from server.models.schemas.helpers import Activity
 
 
 class Ride(BaseDocument):
